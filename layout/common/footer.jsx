@@ -36,8 +36,8 @@ class Footer extends Component {
                             {Object.keys(links).map(name => {
                                 const link = links[name];
                                 return <p class="control">
-                                    <a class={`button is-transparent ${link.icon ? 'is-large' : ''}`} target="_blank" rel="noopener" title={name} href={link.url}>
-                                        {link.icon ? <i class={link.icon}></i> : name}
+                                    <a class={`button is-transparent is-large`} target="_blank" rel="noopener" title={name} href={link.url}>
+                                        {link.icon ? <i class={link.icon}></i> : (link.image ? <img src={link.image} style="height:100%;width:auto;"/> : name)}
                                     </a>
                                 </p>;
                             })}
@@ -60,7 +60,8 @@ module.exports = cacheComponent(Footer, 'common.footer', props => {
             const link = footer.links[name];
             links[name] = {
                 url: url_for(typeof link === 'string' ? link : link.url),
-                icon: link.icon
+                icon: link.icon,
+                image: link.image
             };
         });
     }

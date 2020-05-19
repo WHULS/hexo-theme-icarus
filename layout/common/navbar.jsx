@@ -47,7 +47,7 @@ class Navbar extends Component {
                             {Object.keys(links).map(name => {
                                 const link = links[name];
                                 return <a class="navbar-item" target="_blank" rel="noopener" title={name} href={link.url}>
-                                    {link.icon ? <i class={link.icon}></i> : name}
+                                    {link.icon ? <i class={link.icon}></i> : (link.image ? <img src={link.image} /> : name)}
                                 </a>;
                             })}
                         </Fragment> : null}
@@ -88,7 +88,8 @@ module.exports = cacheComponent(Navbar, 'common.navbar', props => {
             const link = navbar.links[name];
             links[name] = {
                 url: url_for(typeof link === 'string' ? link : link.url),
-                icon: link.icon
+                icon: link.icon,
+                image: link.image
             };
         });
     }
