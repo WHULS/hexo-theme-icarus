@@ -329,6 +329,7 @@ providers:
     # Name or URL template of the JavaScript and/or stylesheet CDN provider
     cdn: jsdelivr
     # Name or URL template of the webfont CDN provider
-    fontcdn: google
+    # fontcdn: google
+    fontcdn: /myfonts/fonts.css
     # Name or URL of the fontawesome icon font CDN provider
-    iconcdn: fontawesome
+    iconcdn: /mycss/fontawesome-v5.12.0.css

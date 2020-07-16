@@ -40,8 +40,11 @@ module.exports = class extends Component {
                 <article class={`card-content article${'direction' in page ? ' ' + page.direction : ''}`} role="article">
                     {page.layout !== 'page' ? <div class="article-meta size-small is-uppercase level is-mobile">
                         <div class="level-left">
-                            {/* Date */}
-                            <time class="level-item" dateTime={date_xml(page.date)} title={date_xml(page.date)}>{date(page.date)}</time>
+                            {/* Date + `（${date(page.date)}）`{new Date(date_xml(page.date)).toLocaleString()} */}
+                            {/* <time class="level-item" dateTime={date_xml(page.date)} title={date_xml(page.date)}>???</time> */}
+                            <span class="level-item">
+                                {new Date(date_xml(page.date)).toLocaleString()}(<time dateTime={date_xml(page.date)} title={date_xml(page.date)}></time>)
+                            </span>
                             {/* author */}
                             {page.author ? <span class="level-item"> {page.author} </span> : null}
                             {/* Categories */}
@@ -75,8 +78,6 @@ module.exports = class extends Component {
                     <h1 class="title is-3 is-size-4-mobile">
                         {index ? <a class="link-muted" href={url_for(page.link || page.path)}>{page.title}</a> : page.title}
                     </h1>
-                    {/* Content/Excerpt */}
-                    <div class="content" dangerouslySetInnerHTML={{ __html: index && page.excerpt ? page.excerpt : page.excerpt + page.content }}></div>
                     {/* Tags */}
                     {!index && page.tags && page.tags.length ? <div class="article-tags size-small is-uppercase mb-4">
                         <span class="mr-2">#</span>
@@ -84,6 +85,8 @@ module.exports = class extends Component {
                             return <a class="link-muted mr-2" rel="tag" href={url_for(tag.path)}>{tag.name}</a>;
                         })}
                     </div> : null}
+                    {/* Content/Excerpt */}
+                    <div class="content" dangerouslySetInnerHTML={{ __html: index && page.excerpt ? page.excerpt : page.excerpt + page.content }}></div>
                     {/* "Read more" button */}
                     {index && page.excerpt ? <a class="article-more button is-small size-small" href={`${url_for(page.path)}#more`}>{__('article.more')}</a> : null}
                     {/* Share button */}
@@ -109,6 +112,10 @@ module.exports = class extends Component {
             </nav> : null}
             {/* Comment */}
             {!index ? <Comment config={config} page={page} helper={helper} /> : null}
+
+            {/* Math CDN */}
+            {/* {!index && page.math ? <link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" rel="stylesheet" type="text/css" /> : null} */}
+            {!index && page.math ? <link href="/mycss/katex.min.css" rel="stylesheet" type="text/css" /> : null}
         </Fragment>;
     }
 };
